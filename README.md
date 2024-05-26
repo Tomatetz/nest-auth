@@ -1,72 +1,56 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
+This project is a NestJS application that implements user registration/authentication, stores refresh tokens for maintaining user sessions, uses JWT for request verification (using Passport), and runs in a Docker container with PostgreSQL, synchronized via Prisma.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Features
+- User Registration/Authentication: Enables users to register and authenticate.
+- Refresh Token Storage: Maintains user sessions through refresh tokens.
+- JWT Verification: Uses JWT (via Passport) for request verification.
+- Docker Integration: Runs in a Docker container.
+- PostgreSQL Integration: Uses PostgreSQL as the database, synchronized via Prisma.
+
+### Getting Started
+**Prerequisites**
+- [Node.js](https://nodejs.org/en)
+- [Docker](https://www.docker.com/)
 
 ## Installation
-
+1. Clone the repository:
+```bash
+git clone https://github.com/your-repo/nestjs-app.git
+cd nestjs-app
+```
+2. Install dependencies:
 ```bash
 $ yarn install
 ```
+3. Rename .env.example file to .env and update file data
 
 ## Running the app
-
+**1. Start the Docker container:**
+Ensure Docker is running on your machine, then run:
 ```bash
+docker-compose up -d
+```
+**2. Generate Prisma Client:**
+```bash
+npx prisma generate
+```
+**3. Run database migrations:**
+```bash
+npm run start
+```
+The application will be available at `http://localhost:5656`.
+
+## Endpoints
+Endpoints
+- POST /auth/register: Register a new user.
+- POST /auth/login: Authenticate a user and receive tokens.
+- POST /auth/refresh: Refresh the JWT using the refresh token.
+- GET /users: Get users list (JWT required).
+
 # development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+$ yarn start:dev
 
 ## License
 

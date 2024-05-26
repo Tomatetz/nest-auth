@@ -27,7 +27,7 @@ export class UsersService {
   }
 
   deleteUser(id: string) {
-    return this.prismaService.user.delete({ where: { id } });
+    return this.prismaService.user.delete({ where: { id }, select: { id: true } });
   }
 
   getAllUsers() {

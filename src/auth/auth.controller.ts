@@ -1,6 +1,8 @@
+import { UserResponse } from './../users/responses/user.response';
 import {
   BadRequestException,
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   HttpStatus,
@@ -8,6 +10,7 @@ import {
   Req,
   Res,
   UnauthorizedException,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { LoginDto, RegisterDto } from './dto';
@@ -25,13 +28,15 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly configService: ConfigService,
   ) {}
-  @Post('/register')
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('register')
   async register(@Body() dto: RegisterDto) {
     const user = await this.authService.register(dto);
     if (!user) {
       throw new BadRequestException(`Cannot register ${JSON.stringify(dto)}`);
     }
-    return { data: user };
+    return new UserResponse(user);
   }
 
   @Post('/login')

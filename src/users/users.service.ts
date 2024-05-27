@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { IJwtPayload } from '@auth/interfaces';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { Role, User } from '@prisma/client';
 import { PrismaService } from '@prisma/prisma.service';
 import { genSaltSync, hashSync } from 'bcrypt';
@@ -13,7 +14,7 @@ export class UsersService {
       data: {
         email: user.email,
         password: hashedPassword,
-        roles: [Role.USER],
+        roles: [Role.USER, Role.ADMIN],
       },
     });
   }
@@ -26,7 +27,14 @@ export class UsersService {
     });
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: string, currentUser: IJwtPayload) {
+    // Allow only current user to be deleted
+    // if (id !== currentUser.id) {
+    //   throw new ForbiddenException();
+    // }
+    if (!currentUser.roles.includes(Role.ADMIN)) {
+      throw new ForbiddenException();
+    }
     return this.prismaService.user.delete({ where: { id }, select: { id: true } });
   }
 

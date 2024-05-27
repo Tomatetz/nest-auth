@@ -1,5 +1,5 @@
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '@user/users.service';
+import { UsersService } from '@users/users.service';
 import { LoginDto, RegisterDto } from './dto';
 import { ITokens } from './interfaces';
 import { compareSync } from 'bcrypt';
@@ -49,7 +49,7 @@ export class AuthService {
       this.jwtService.sign({
         id: user.id,
         email: user.email,
-        role: user.roles,
+        roles: user.roles,
       });
     const refreshToken = await this.getRefreshToken(user.id, agent);
     return {

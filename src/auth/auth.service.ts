@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   async login(dto: LoginDto, agent: string): Promise<ITokens> {
-    const user: User = await this.usersService.findByIdOrEmail(dto.email).catch((err) => {
+    const user: User = await this.usersService.findByIdOrEmail(dto.email, true).catch((err) => {
       this.logger.error(err);
       return null;
     });

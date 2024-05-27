@@ -20,6 +20,7 @@ export class UsersService {
   }
 
   findByIdOrEmail(idOrEmail: string) {
+    console.log(`findByIdOrEmail`);
     return this.prismaService.user.findFirst({
       where: {
         OR: [{ id: idOrEmail }, { email: idOrEmail }],

@@ -11,14 +11,17 @@ import {
   Req,
   Res,
   UnauthorizedException,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { LoginDto, RegisterDto } from './dto';
 import { AuthService } from './auth.service';
-import { ITokens } from './interfaces';
+import { IJwtPayload, ITokens } from './interfaces';
 import { ConfigService } from '@nestjs/config';
-import { Cookie, Public, UserAgent } from '@common/decorators';
+import { Cookie, CurrentUser, Public, Roles, UserAgent } from '@common/decorators';
+import { RolesGuard } from './guards/role.guard';
+import { Role } from '@prisma/client';
 
 const REFRESH_TOKEN = 'refreshtoken';
 

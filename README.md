@@ -8,6 +8,7 @@ This project is a NestJS application that implements user registration/authentic
 - JWT Verification: Uses JWT (via Passport) for request verification.
 - Docker Integration: Runs in a Docker container.
 - PostgreSQL Integration: Uses PostgreSQL as the database, synchronized via Prisma.
+- Role-based access control.
 
 ### Getting Started
 **Prerequisites**
